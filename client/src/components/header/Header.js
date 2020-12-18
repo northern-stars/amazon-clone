@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     searchInput: {
         backgroundColor: 'white',
         paddingLeft: '0.5rem',
-        border: 'none'
+        border: 'none',
         
     },
     searchIcon: {
@@ -33,7 +33,8 @@ const useStyles = makeStyles({
     headerSearch: {
         display: 'flex',
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        
     },
     headerNavigation: {
         display: 'flex',
