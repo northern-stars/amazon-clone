@@ -53,7 +53,7 @@ const UserSchema = new Schema({
 
 //Methods
 UserSchema.methods.generateJwtFromUser = function () {
-  const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
+  const { JWT_SECRET_KEY } = process.env;
   const payload = {
     id: this._id,
     firstName: this.firstName,
