@@ -6,6 +6,13 @@ const morgan = require("morgan");
 const path = require("path");
 
 const app = express();
+// Middlewares
+//Express Body Parser midd.
+app.use(express.json());
+app.use(cookieParser());
+app.use(morgan("dev")); // GET / 404 6.489 ms - 139
+
+app.use(express.urlencoded({ extended: true }));
 const port = process.env.port || process.env.PORT;
 
 // Route
@@ -14,13 +21,6 @@ app.use("/api", router); // respond only "/api" endpoint
 
 // Connect DB
 connectDB();
-
-// Middlewares
-
-app.use(cookieParser());
-app.use(morgan("dev")); // GET / 404 6.489 ms - 139
-app.use(express.json()); // it provides to use data send by body
-app.use(express.urlencoded({ extended: true }));
 
 // // Production
 // if (process.env.NODE_ENV === "production") {
