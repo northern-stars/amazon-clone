@@ -26,17 +26,18 @@
   },
   "homepage": "https://github.com/northern-stars/amazon-clone#readme",
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
     "bcryptjs": "^2.4.3",
     "concurrently": "^5.3.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
     "dotenv": "^8.2.0",
+    "express": "~4.16.1",
     "express-validator": "^6.8.0",
+    "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.7"
+    "mongoose": "^5.11.7",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
