@@ -2,9 +2,9 @@ const User = require("../models/UserModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { body, validationResult, check } = require("express-validator");
-// const asyncErrorWrapper = require("express-async-handler");
+//const asyncErrorWrapper = require("express-async-handler");
 const { sendJwtToClient } = require("../helpers/auth/jwtTokenHelpers");
-// const comparePassword = require("../helpers/auth/comparePassword");
+const comparePassword = require("../helpers/auth/comparePassword");
 
 const register = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -73,6 +73,34 @@ const register = async (req, res, next) => {
   //   //TODO Pass hash add User pre hooks ✅
 };
 
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  //TODO1 : Input validate  (express-validator ) ✅
+  const validationErr = validationResult(req);
+  if (validationErr.errors.length > 0) {
+    return res.status(400).json({
+      errors: validationErr.array(),
+    });
+  }
+
+  //TODO2: Check already registered ✅
+  const user = await User.findOne({ email }).select("+password"); // select("-password");
+  if (!user) {
+    return res
+      .status(400)
+      .json({ errors: [{ message: "User does not  exists" }] });
+  }
+
+  //TODO:3 Compare Password ✅
+  if (!comparePassword(password, user.password)) {
+    return res
+      .status(400)
+      .json({ errors: [{ message: "Please check  your credentials!" }] });
+  }
+  sendJwtToClient(user, res);
+};
+
 module.exports = {
   register,
+  login,
 };
