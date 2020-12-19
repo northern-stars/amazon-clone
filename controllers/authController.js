@@ -100,7 +100,16 @@ const login = async (req, res, next) => {
   sendJwtToClient(user, res);
 };
 
+const logout = async (req, res, next) => {
+  //TODO:1 Cookie Clear and Client LocalStorage Clear
+  return res.status(200).json({
+    success: true,
+    message: "Logout Successfull",
+  });
+};
+
 module.exports = {
   register,
   login,
+  logout,
 };

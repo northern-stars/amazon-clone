@@ -3,10 +3,10 @@ const { body, validationResult, check } = require("express-validator");
 const {
   register,
   login,
-  //   logout,
+  logout,
   //   currentUser,
 } = require("../controllers/authController");
-// const authCheck = require("../middlewares/auth/authCheck");
+const authCheck = require("../middlewares/auth/authCheck");
 
 const router = express.Router();
 /**
@@ -40,5 +40,15 @@ router.post(
   ],
   login
 );
-
+/**
+ * @access : Private
+ * @desc : Register endpoint
+ * @route :Post  /api/auth/logout
+ */
+router.get(
+  "/logout",
+  authCheck,
+  //TODO: authCheck Midd. Added
+  logout
+);
 module.exports = router;

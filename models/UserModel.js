@@ -21,6 +21,12 @@ const UserSchema = new Schema({
       "Please fill a valid email address",
     ],
   },
+
+  //TODO: Password regex added
+  // //// at least one number, one lowercase and one uppercase letter
+  //       // at least six characters
+  //       regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  // regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,1024}$/) //special/number/capital
   password: {
     type: String,
     minlength: [6, "Please provide a password with min lenght 6"],
