@@ -107,9 +107,25 @@ const logout = async (req, res, next) => {
     message: "Logout Successfull",
   });
 };
+const currentUser = async (req, res, next) => {
+  //console.log(req.user);
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return res
+      .status(400)
+      .json({ errors: [{ message: "User does not exist" }] });
+  }
+  // res.json(user);
+
+  return res.status(200).json({
+    success: true,
+    user: user,
+  });
+};
 
 module.exports = {
   register,
   login,
   logout,
+  currentUser,
 };

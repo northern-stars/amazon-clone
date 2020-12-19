@@ -4,7 +4,7 @@ const {
   register,
   login,
   logout,
-  //   currentUser,
+  currentUser,
 } = require("../controllers/authController");
 const authCheck = require("../middlewares/auth/authCheck");
 
@@ -51,4 +51,10 @@ router.get(
   //TODO: authCheck Midd. Added
   logout
 );
+/**
+ * @route   GET api/auth/user
+ * @desc    Get user data
+ * @access  Private
+ */
+router.get("/user", authCheck, currentUser);
 module.exports = router;
