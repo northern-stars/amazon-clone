@@ -24,18 +24,19 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         paddingLeft: '0.5rem',
         border: 'none',
+        borderRadius: '6px 0 0 6px'
         
     },
     searchIcon: {
         backgroundColor: '#cd9042',
         height: '22.1px',
         padding: '5.4px',
+        borderRadius: '0 6px 6px 0'
     },
     headerSearch: {
         display: 'flex',
         flex: 1,
         alignItems: 'center',
-        
     },
     headerNavigation: {
         display: 'flex',
