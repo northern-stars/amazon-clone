@@ -1,23 +1,24 @@
 import React from 'react'
-import { AppBar, Toolbar, makeStyles, InputBase, BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import { AppBar,
+         Toolbar, 
+         makeStyles, 
+         InputBase,
+         BottomNavigation, 
+         BottomNavigationAction
+        } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-
 
 const useStyles = makeStyles({
     appBar: {
         backgroundColor: '#131921',
         display: 'flex',
-        // alignItems: 'left',
-      
     },
-
     headerLogo: {
         width: '100px',
         objectFit: 'contain',
         marginTop: '10px',
-        marginRight: '1rem',
-        
+        marginRight: '1rem', 
     },
     searchInput: {
         backgroundColor: 'white',
@@ -40,9 +41,7 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'space-evenly',
         backgroundColor: '#131921',
-        padding: '0px',
-        
-        
+        padding: '0px',  
     },
     action: {
         display: 'flex',
@@ -50,55 +49,46 @@ const useStyles = makeStyles({
         color: 'white',
         fontWeight: 800,
         padding: '0px',
-        margin: '0px'
-        
-        
-    }
-    
-
+        margin: '0px' 
+    } 
 });
 
-
 function Header() {
-    const styles = useStyles();
+    const classes = useStyles();
 
     return (
         <div className="header">
-            <AppBar className={styles.appBar} position="static" >
+            <AppBar className={classes.appBar} position="static" >
                 <Toolbar>
                     <img
-                        className={styles.headerLogo}
+                        className={classes.headerLogo}
                         src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
                         alt="brand logo"
                     />
-                    <div className={styles.headerSearch}>
+                    <div className={classes.headerSearch}>
                         <InputBase 
-                            className={styles.searchInput}
+                            className={classes.searchInput}
                             margin="none"
                             placeholder="Search.."
                             fullWidth
                         />
-                        <SearchIcon className={styles.searchIcon}/>
+                        <SearchIcon className={classes.searchIcon}/>
                     </div>
 
                     <BottomNavigation
                         showLabels
-                        className={styles.headerNavigation}
+                        className={classes.headerNavigation}
                     >
-                        <BottomNavigationAction className={styles.action} label="Sign In" />
-                        <BottomNavigationAction className={styles.action} label="& Orders" />
-                        <BottomNavigationAction className={styles.action} label="Prime" />
-                        <BottomNavigationAction className={styles.action} icon={<ShoppingBasketIcon/>} />
-
-                        
+                        <BottomNavigationAction className={classes.action} label="Sign In" />
+                        <BottomNavigationAction className={classes.action} label="& Orders" />
+                        <BottomNavigationAction className={classes.action} label="Prime" />
+                        <BottomNavigationAction className={classes.action} icon={<ShoppingBasketIcon/>}/>  
                     </BottomNavigation>
-
-
                 </Toolbar>
             </AppBar>
         </div>
     )
-}
+};
 
 export default Header;
 
