@@ -12,6 +12,23 @@ const userProfileInfo = async (req, res, next) => {
   }
 };
 
+const updateProfileInfo = async (req, res, next) => {
+  const editInfo = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(req.user.id, editInfo, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   userProfileInfo,
+  updateProfileInfo,
 };
