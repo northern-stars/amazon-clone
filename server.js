@@ -3,9 +3,14 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const { connectDB } = require("./helpers/connectDB");
 const morgan = require("morgan");
+const path = require("path");
 
 const app = express();
 const port = process.env.port || process.env.PORT;
+
+// Route
+const router = require("./routes/router");
+app.use("/api", router); // respond only "/api" endpoint
 
 // Connect DB
 connectDB();
@@ -13,7 +18,7 @@ connectDB();
 // Middlewares
 
 app.use(cookieParser());
-app.use(morgan("dev"));  // GET / 404 6.489 ms - 139
+app.use(morgan("dev")); // GET / 404 6.489 ms - 139
 app.use(express.json()); // it provides to use data send by body
 app.use(express.urlencoded({ extended: true }));
 
