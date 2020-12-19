@@ -9,6 +9,6 @@ const productRouter = require("./productRouter");
  * @desc Route for Product
  */
 
-router.use("/product", productRouter);
+// router.use("/product", productRouter);
 
 module.exports = router;
