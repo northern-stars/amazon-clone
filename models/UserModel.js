@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -53,6 +54,12 @@ const UserSchema = new Schema({
     type: String,
     default: "default.jpg",
   },
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpire: {
+    type: Date,
+  },
 });
 
 // post eklenecek
@@ -70,6 +77,21 @@ UserSchema.methods.generateJwtFromUser = function () {
   });
 
   return token;
+};
+
+// generete reset password token
+
+UserSchema.methods.getResetPasswordToken = function () {
+  const randomHexString = crypto.randomBytes(15).toString("hex");
+  // console.log(randomHexString);
+  const { RESET_PASSWORD_EXPIRE } = process.env;
+  const resetPassToken = crypto
+    .createHash("SHA256")
+    .update(randomHexString)
+    .digest("hex");
+
+  this.resetPasswordToken = resetPassToken;
+  this.resetPasswordExpire = Date.now() + parseInt(RESET_PASSWORD_EXPIRE);
 };
 
 //Pre Hooks

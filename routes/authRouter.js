@@ -5,6 +5,8 @@ const {
   login,
   logout,
   currentUser,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/authController");
 const authCheck = require("../middlewares/auth/authCheck");
 
@@ -57,4 +59,17 @@ router.get(
  * @access  Private
  */
 router.get("/user", authCheck, currentUser);
+/**
+ * @route   Post api/auth/forgotpassword
+ * @desc    Post user data
+ * @access  Public
+ */
+router.post("/forgotpassword", forgotPassword);
+
+/**
+ * @route   PUT api/auth/resetpassword
+ * @desc    PUT user data
+ * @access  Public
+ */
+router.put("/resetpassword", resetPassword);
 module.exports = router;
