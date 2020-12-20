@@ -196,6 +196,25 @@ const resetPassword = async (req, res, next) => {
 
   return res.json({ success: true, message: "Reset Password Successful" });
 };
+const imageUpload = async (req, res, next) => {
+  const baseUrl = req.protocol + "://" + req.get("host");
+  const imgUrl = baseUrl + "/public/" + req.savedProfileImage;
+  const user = await User.findByIdAndUpdate(
+    req.user.id,
+    {
+      avatarImg: imgUrl,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.json({
+    success: true,
+    message: "Upload Successfull",
+    data: user,
+  });
+};
 
 module.exports = {
   register,
@@ -204,4 +223,5 @@ module.exports = {
   currentUser,
   forgotPassword,
   resetPassword,
+  imageUpload,
 };

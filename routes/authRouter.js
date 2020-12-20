@@ -7,8 +7,10 @@ const {
   currentUser,
   forgotPassword,
   resetPassword,
+  imageUpload,
 } = require("../controllers/authController");
 const authCheck = require("../middlewares/auth/authCheck");
+const profileImageUpload = require("../middlewares/auth/profileImageUpload");
 
 const router = express.Router();
 /**
@@ -72,4 +74,14 @@ router.post("/forgotpassword", forgotPassword);
  * @access  Public
  */
 router.put("/resetpassword", resetPassword);
+/**
+ * @route   PUT api/auth/upload
+ * @desc    PUT user data
+ * @access  Pravite
+ */
+router.post(
+  "/upload",
+  [authCheck, profileImageUpload.single("profile_image")],
+  imageUpload
+);
 module.exports = router;
