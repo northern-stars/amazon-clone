@@ -1,0 +1,47 @@
+.images-wrapper {
+    margin-left: 11%;
+    margin-right: 11%;
+}
+
+.text-wrapper {
+    margin-top: 2%;
+    margin-bottom: 1%;
+    margin-left: 12%;
+    
+    font-family: "Amazon Ember", Arial, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    
+    color: #0f1111
+}
+button {
+    margin: 10px;
+    border: 2px solid #ededed;
+    border-radius: 5px;
+   
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box {
+    margin: 10px;
+    border: 3px solid #ededed;
+    border-radius: 5px;
+    width: 285px;
+    height: 320px;
+    padding: 20px;
+    line-height: 23px;
+}
+
+h3{
+    font-family: "Amazon Ember", Arial, sans-serif;
+    color: #0f1111;
+    margin-bottom: 10px;
+}
+a {
+    font-family: "Amazon Ember", Arial, sans-serif;
+    color: #7b9ecc
+}
