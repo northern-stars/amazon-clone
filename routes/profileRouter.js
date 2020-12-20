@@ -1,5 +1,6 @@
 const express = require("express");
 const authCheck = require("../middlewares/auth/authCheck");
+const profileImageUpload = require("../middlewares/auth/profileImageUpload");
 
 const {
   userProfileInfo,
@@ -19,6 +20,10 @@ router.get("/", authCheck, userProfileInfo);
  * @desc    Update Profile endpoint
  * @access  Private
  */
-router.put("/update", authCheck, updateProfileInfo);
+router.put(
+  "/update",
+  [authCheck, profileImageUpload.single("profile_image")],
+  updateProfileInfo
+);
 
 module.exports = router;
