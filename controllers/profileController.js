@@ -13,15 +13,18 @@ const userProfileInfo = async (req, res, next) => {
 };
 
 const updateProfileInfo = async (req, res, next) => {
-  //TODO avatarImage eklenecek req.file.profile_image
-  const baseUrl = req.protocol + "://" + req.get("host");
-  const imgUrl = baseUrl + "/public/" + req.savedProfileImage;
+  //TODO avatarImage eklenecek req.file.profile_image  client tarafında farklı işlemler var
+
+  const imageUrl = req.file.path;
   const editInfo = req.body;
   console.log(req.savedProfileImage);
   try {
     const user = await User.findByIdAndUpdate(
       req.user.id,
-      { ...editInfo, avatarImg: imgUrl },
+      {
+        ...editInfo,
+        avatarImg: imageUrl,
+      },
       {
         new: true,
         runValidators: true,

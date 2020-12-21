@@ -129,9 +129,9 @@ const forgotPassword = async (req, res, next) => {
       .json({ errors: [{ message: "There is no user with that email" }] });
   }
 
-  const resetPassToken = user.getResetPasswordToken();
+  user.getResetPasswordToken(); // fonksiyon tetiklenerek resetPasswordToken üretildi ve set edildi.
 
-  await user.save();
+  await user.save(); // yukarıda set edilen ilgili feildler db ye kayıt edildi.
 
   const resetPassUrl = `http://localhost:5000/api/auth/resetpassword?resetPasswordToken=${user.resetPasswordToken}`;
 
@@ -152,14 +152,13 @@ const forgotPassword = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Token Sent To Your Email",
-      // data: user,
+      data: user,
     });
   } catch (error) {
+    //Burası revize edilicek.(user.save yapmadan sadece hata dşmdurme test edilicek.)
     user.resetPasswordToken = null;
     user.resetPasswordExpire = null;
-
     await user.save();
-
     return res
       .status(500)
       .json({ errors: [{ message: "Email Could not be sent" }] });
@@ -197,12 +196,13 @@ const resetPassword = async (req, res, next) => {
   return res.json({ success: true, message: "Reset Password Successful" });
 };
 const imageUpload = async (req, res, next) => {
-  const baseUrl = req.protocol + "://" + req.get("host");
-  const imgUrl = baseUrl + "/public/" + req.savedProfileImage;
+  // const baseUrl = req.protocol + "://" + req.get("host");
+  // const imgUrl = baseUrl + "/public/" + req.savedProfileImage;
+  const imageUrl = req.file.path;
   const user = await User.findByIdAndUpdate(
     req.user.id,
     {
-      avatarImg: imgUrl,
+      avatarImg: imageUrl,
     },
     {
       new: true,
