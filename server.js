@@ -19,6 +19,10 @@ const port = process.env.port || process.env.PORT;
 const router = require("./routes/router");
 app.use("/api", router); // respond only "/api" endpoint
 
+//Static Files
+
+app.use(express.static(path.join(__dirname, "public")));
+
 // Connect DB
 connectDB();
 

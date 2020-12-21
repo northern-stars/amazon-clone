@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -21,6 +22,12 @@ const UserSchema = new Schema({
       "Please fill a valid email address",
     ],
   },
+
+  //TODO: Password regex added
+  // //// at least one number, one lowercase and one uppercase letter
+  //       // at least six characters
+  //       regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  // regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,1024}$/) //special/number/capital
   password: {
     type: String,
     minlength: [6, "Please provide a password with min lenght 6"],
@@ -47,6 +54,12 @@ const UserSchema = new Schema({
     type: String,
     default: "default.jpg",
   },
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpire: {
+    type: Date,
+  },
 });
 
 // post eklenecek
@@ -64,6 +77,21 @@ UserSchema.methods.generateJwtFromUser = function () {
   });
 
   return token;
+};
+
+// generete reset password token
+
+UserSchema.methods.getResetPasswordToken = function () {
+  const randomHexString = crypto.randomBytes(15).toString("hex");
+  // console.log(randomHexString);
+  const { RESET_PASSWORD_EXPIRE } = process.env;
+  const resetPassToken = crypto
+    .createHash("SHA256")
+    .update(randomHexString)
+    .digest("hex");
+
+  this.resetPasswordToken = resetPassToken;
+  this.resetPasswordExpire = Date.now() + parseInt(RESET_PASSWORD_EXPIRE);
 };
 
 //Pre Hooks

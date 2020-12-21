@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const productRouter = require("./productRouter");
 const authRouter = require("./authRouter");
+const profileRouter = require("./profileRouter");
 
 // Only /api endpoint will be used for server
 
@@ -18,5 +19,12 @@ const authRouter = require("./authRouter");
  */
 
 router.use("/auth", authRouter);
+
+/**
+ * @route /api/profile
+ * @desc Route for Profile
+ */
+
+router.use("/profile", profileRouter);
 
 module.exports = router;
