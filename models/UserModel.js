@@ -44,7 +44,7 @@ const UserSchema = new Schema({
     default: "customer",
     enum: ["seller", "customer", "admin"],
   },
-  likesProduct: [
+  likedProducts: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
