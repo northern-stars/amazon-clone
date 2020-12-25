@@ -14,14 +14,13 @@ app.use(morgan("dev")); // GET / 404 6.489 ms - 139
 
 app.use(express.urlencoded({ extended: true }));
 const port = process.env.port || process.env.PORT;
-
+//Static Files
+app.use(express.static(path.join(__dirname, "public")));
 // Route
 const router = require("./routes/router");
 app.use("/api", router); // respond only "/api" endpoint
 
-//Static Files
 
-app.use(express.static(path.join(__dirname, "public")));
 
 // Connect DB
 connectDB();
