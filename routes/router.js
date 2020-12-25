@@ -11,7 +11,7 @@ const profileRouter = require("./profileRouter");
  * @desc Route for Product
  */
 
-// router.use("/product", productRouter);
+router.use("/product", productRouter);
 
 /**
  * @route /api/auth

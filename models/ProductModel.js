@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
+  status: {
+    type: String,
+    default: "created",
+  },
   name: {
     type: String,
     maxlength: 100,
@@ -16,10 +20,25 @@ const ProductSchema = new mongoose.Schema({
     default:
       "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg",
   },
-  category: {
-    //TODO: Category Model will be added
-    // ref: Category Model
-  },
+  category: [
+    {
+      type: String,
+      enum: [
+        "Books",
+        "Films, TV, Music & Games",
+        "Electronics & Computers",
+        "Home, Garden, Pets & DIY",
+        "Toys, Children & Baby",
+        "Clothes, Shoes & Watches",
+        "Sports & Outdoors",
+        "Food & Grocery",
+        "Health & Beauty",
+        "Car & Motorbike",
+        "Business, Industry & Science",
+      ],
+      required: [true, "Please provide a category"],
+    },
+  ],
   rating: {
     type: Number,
     min: 0,
@@ -32,13 +51,23 @@ const ProductSchema = new mongoose.Schema({
     min: 0,
   },
   seller: {
-    //TODO: User Model will be added
-    // ref: User Model Name
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
   description: {
     type: String,
     required: true,
   },
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedDate: {
+    type: Date,
+  },
+  deletedDate: {
+    type: Date,
+  },
 });
 
-module.exports = Product = mongoose.model("product", ProductSchema);
+module.exports = mongoose.model("Product", ProductSchema);
