@@ -9,9 +9,12 @@ const {
   deleteProduct,
   likeProduct,
   removeLikeProduct,
-  searchProduct
+  searchProduct,
 } = require("../controllers/productController");
 const authCheck = require("../middlewares/auth/authCheck");
+const storedProductImage = require("../middlewares/product/storeProductImage");
+const checkProductExistence = require("../middlewares/product/checkProductExistence");
+const checkOwnership = require("../middlewares/product/checkOwnership");
 
 // base url: /api/product
 
@@ -42,7 +45,11 @@ router.get("/details/:id", getProductDetails);
  * @desc   Add Product Endpoint
  * @access Private for Seller Account
  */
-router.post("/add", authCheck, addProduct);
+router.post(
+  "/add",
+  [authCheck, storedProductImage.array("product_images", 10)],
+  addProduct
+);
 //TODO: check seller auth
 //TODO: check product exist
 
@@ -51,7 +58,16 @@ router.post("/add", authCheck, addProduct);
  * @desc   Update Product Endpoint
  * @access Private for Seller Account
  */
-router.put("/update/:id", authCheck, updateProduct);
+router.put(
+  "/update/:id",
+  [
+    authCheck,
+    checkProductExistence,
+    checkOwnership,
+    storedProductImage.array("product_images", 10),
+  ],
+  updateProduct
+);
 //TODO: check seller auth
 //TODO: check product exist
 //TODO: check ownership of product
@@ -61,7 +77,11 @@ router.put("/update/:id", authCheck, updateProduct);
  * @desc   Delete Product Endpoint
  * @access Private for Seller Account
  */
-router.delete("/delete/:id", authCheck, deleteProduct);
+router.delete(
+  "/delete/:id",
+  [authCheck, checkProductExistence, checkOwnership],
+  deleteProduct
+);
 //TODO: check seller auth
 //TODO: check product exist
 //TODO: check ownership of product

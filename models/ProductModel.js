@@ -15,11 +15,11 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  imgUrl: {
-    type: String,
-    default:
-      "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg",
-  },
+  imgUrl: [
+    {
+      type: String,
+    },
+  ],
   category: [
     {
       type: String,

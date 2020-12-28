@@ -21,6 +21,10 @@ const getProductDetails = asyncHandler(async (req, res) => {
 
 const addProduct = asyncHandler(async (req, res) => {
   const { name, price, description, category } = req.body;
+  const productImageUrls = [];
+  for (var i = 0; i < req?.files?.length; i++) {
+    productImageUrls.push(req.files[i].path);
+  }
 
   // check if product exist
   const duplicateProduct = await Product.findOne({
@@ -38,15 +42,29 @@ const addProduct = asyncHandler(async (req, res) => {
   }
 
   // await Product.create({ ...req.body, seller: req.user.id });
-  const product = new Product({ ...req.body, seller: req.user.id });
+  const product = new Product({
+    ...req.body,
+    seller: req.user.id,
+    imgUrl: productImageUrls,
+  });
   const savedProduct = await product.save({ new: true });
   res.status(200).json(savedProduct);
 });
 
 const updateProduct = asyncHandler(async (req, res) => {
+  const productImageUrls = [];
+  for (var i = 0; i < req?.files?.length; i++) {
+    productImageUrls.push(req.files[i].path);
+  }
+
   const updatedProduct = await Product.findOneAndUpdate(
     { _id: req.params.id },
-    { ...req.body, status: "updated", updatedDate: Date.now() },
+    {
+      ...req.body,
+      imgUrl: productImageUrls,
+      status: "updated",
+      updatedDate: Date.now(),
+    },
     { new: true, runValidators: true }
   );
   res.status(200).json(updatedProduct);
