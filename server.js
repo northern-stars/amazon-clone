@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const { connectDB } = require("./helpers/connectDB");
 const morgan = require("morgan");
 const path = require("path");
+const customErrorHandler = require("./middlewares/error/customErrorHandler");
 
 const app = express();
 // Middlewares
@@ -18,9 +19,10 @@ const port = process.env.port || process.env.PORT;
 app.use(express.static(path.join(__dirname, "public")));
 // Route
 const router = require("./routes/router");
+app.use(customErrorHandler);
 app.use("/api", router); // respond only "/api" endpoint
-
-
+//Custom Error Handler
+app.use(customErrorHandler);
 
 // Connect DB
 connectDB();

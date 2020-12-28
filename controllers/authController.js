@@ -5,38 +5,39 @@ const { body, validationResult, check } = require("express-validator");
 const sendEmail = require("../helpers/auth/sendEmail");
 const { sendJwtToClient } = require("../helpers/auth/jwtTokenHelpers");
 const comparePassword = require("../helpers/auth/comparePassword");
+const CustomError = require("../helpers/error/CustomError");
+const asyncHandler = require("express-async-handler");
 
-const register = async (req, res, next) => {
+const register = asyncHandler(async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
   //TODO1 : Input validate  (express-validator ) ✅
   const validationErr = validationResult(req);
   if (validationErr.errors.length > 0) {
-    return res.status(400).json({
-      errors: validationErr.array(),
-    });
+    // return res.status(400).json({
+    //   errors: validationErr.array(),
+    // });
+    return next(new CustomError(validationErr.array(), 400));
   }
-  //TODO2: Check already registered
-  try {
-    const checkUser = await User.findOne({ email }); // select("-password");
-    if (checkUser) {
-      return res
-        .status(400)
-        .json({ errors: [{ message: "User already exists" }] });
-    }
-    //TODO3: Save the User
-    const newUser = await User.create({
-      firstName,
-      lastName,
-      email,
-      password,
-    });
-    //TODO4: Authentication (jwt)
-    sendJwtToClient(newUser, res);
-  } catch (error) {
-    next(error);
-  }
+  //TODO2: Check already registered ✅
 
-  //TODO3: Crpyt password 1 method   or pre hooks UserScheme  2 method
+  const checkUser = await User.findOne({ email }); // select("-password");
+  if (checkUser) {
+    // return res
+    //   .status(400)
+    //   .json({ errors: [{ message: "User already exists" }] });
+    return next(new CustomError("User already exists", 400));
+  }
+  //TODO3: Save the User ✅
+  const newUser = await User.create({
+    firstName,
+    lastName,
+    email,
+    password,
+  });
+  //TODO4: Authentication (jwt)  ✅
+  sendJwtToClient(newUser, res);
+
+  //TODO3: Crpyt password 1 method   or pre hooks UserScheme  2 method ✅
   //   const salt = await bcrypt.genSalt(10);
   //   const hashPass = await bcrypt.hash(password, salt);
   //   const newUser = new User({
@@ -59,7 +60,7 @@ const register = async (req, res, next) => {
   //     expiresIn: 3600,
   //   });
 
-  //   //TODO Check token and sendTokenToClient helpers
+  //   //TODO Check token and sendTokenToClient helpers  ✅
 
   //   const token = await newUser.generateJwtFromUser();
 
@@ -68,65 +69,70 @@ const register = async (req, res, next) => {
   //       .status(400)
   //       .json({ errors: [{ message: "Couldnt sign the token" }] });
   //   }
-  //   //TODO Add CustomError
+  //   //TODO Add CustomError ✅
   //   //TODO Add jwt token add User.methods and Jwt Token Helpers ✅
   //   //TODO Pass hash add User pre hooks ✅
-};
+});
 
-const login = async (req, res, next) => {
+const login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
   //TODO1 : Input validate  (express-validator ) ✅
   const validationErr = validationResult(req);
   if (validationErr.errors.length > 0) {
-    return res.status(400).json({
-      errors: validationErr.array(),
-    });
+    // return res.status(400).json({
+    //   errors: validationErr.array(),
+    // });
+    return next(new CustomError(validationErr.array(), 400));
   }
 
   //TODO2: Check already registered ✅
   const user = await User.findOne({ email }).select("+password"); // select("-password");
   if (!user) {
-    return res
-      .status(400)
-      .json({ errors: [{ message: "User does not  exists" }] });
+    // return res
+    //   .status(400)
+    //   .json({ errors: [{ message: "User does not  exists" }] });
+    return next(new CustomError("User does not  exists", 400));
   }
 
   //TODO:3 Compare Password ✅
   if (!comparePassword(password, user.password)) {
-    return res
-      .status(400)
-      .json({ errors: [{ message: "Please check  your credentials!" }] });
+    // return res
+    //   .status(400)
+    //   .json({ errors: [{ message: "Please check  your credentials!" }] });
+    return next(new CustomError("Please check  your credentials!", 400));
   }
   sendJwtToClient(user, res);
-};
+});
 
-const logout = async (req, res, next) => {
+const logout = asyncHandler(async (req, res, next) => {
   //TODO:1 Cookie Clear and Client LocalStorage Clear
   return res.status(200).json({
     success: true,
     message: "Logout Successfull",
   });
-};
-const currentUser = async (req, res, next) => {
+});
+const currentUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   if (!user) {
-    return res
-      .status(400)
-      .json({ errors: [{ message: "User does not exist" }] });
+    // return res
+    //   .status(400)
+    //   .json({ errors: [{ message: "User does not exist" }] });
+    return next(new CustomError("User does not exist", 400));
   }
   return res.status(200).json({
     success: true,
     user: user,
   });
-};
+});
 
-const forgotPassword = async (req, res, next) => {
+const forgotPassword = asyncHandler(async (req, res, next) => {
   const resetEmail = req.body.email;
   const user = await User.findOne({ email: resetEmail });
   if (!user) {
-    return res
-      .status(400)
-      .json({ errors: [{ message: "There is no user with that email" }] });
+    // return res
+    //   .status(400)
+    //   .json({ errors: [{ message: "There is no user with that email" }] });
+    return next(new CustomError("here is no user with that email", 400));
   }
 
   user.getResetPasswordToken(); // fonksiyon tetiklenerek resetPasswordToken üretildi ve set edildi.
@@ -159,20 +165,22 @@ const forgotPassword = async (req, res, next) => {
     user.resetPasswordToken = null;
     user.resetPasswordExpire = null;
     await user.save();
-    return res
-      .status(500)
-      .json({ errors: [{ message: "Email Could not be sent" }] });
+    // return res
+    //   .status(500)
+    //   .json({ errors: [{ message: "Email Could not be sent" }] });
+    return next(new CustomError("Email Could not be sent", 500));
   }
-};
+});
 
 const resetPassword = async (req, res, next) => {
   const { resetPasswordToken } = req.query;
   const { password } = req.body;
 
   if (!resetPasswordToken) {
-    return res
-      .status(400)
-      .json({ errors: [{ message: "Please provide a valid token" }] });
+    // return res
+    //   .status(400)
+    //   .json({ errors: [{ message: "Please provide a valid token" }] });
+    return next(new CustomError("Please provide a valid token", 400));
   }
 
   let user = await User.findOne({
@@ -181,9 +189,10 @@ const resetPassword = async (req, res, next) => {
   });
 
   if (!user) {
-    return res
-      .status(404)
-      .json({ errors: [{ message: "Invalid token or session expired" }] });
+    // return res
+    //   .status(404)
+    //   .json({ errors: [{ message: "Invalid token or session expired" }] });
+    return next(new CustomError("Invalid token or session expired", 404));
   }
 
   user.password = password;
