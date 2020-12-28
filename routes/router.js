@@ -3,6 +3,7 @@ const router = express.Router();
 const productRouter = require("./productRouter");
 const authRouter = require("./authRouter");
 const profileRouter = require("./profileRouter");
+const basketRouter = require("./basketRouter");
 
 // Only /api endpoint will be used for server
 
@@ -26,5 +27,12 @@ router.use("/auth", authRouter);
  */
 
 router.use("/profile", profileRouter);
+
+/**
+ * @route /api/basket
+ * @desc Route for Basket
+ */
+
+ router.use("/basket", basketRouter)
 
 module.exports = router;
