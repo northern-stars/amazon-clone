@@ -1,5 +1,5 @@
 ## Amozon - Frontend
-- Header Section
+- Header Section   ==> Sirius
     - logo
     - categories
     - searchbar
@@ -8,12 +8,13 @@
     - profile
     - basket
 
-- Sign In form (page)
+- Sign In form (page)  ==> Sirius
     - email
     - password
     - forgot password (link)
     - sign up link below the form
-- Sign Up form (page)
+    
+- Sign Up form (page)   ==>  Sirius
     - First Name
     - Last Name
     - Email 
@@ -23,21 +24,21 @@
         - customer (radio button)
     - sing in link below the form
 - Log Out (button)
-- Forgot Password (page)
-- Reset Password (page)
+- Forgot Password (page)  
+- Reset Password (page)   ==> ...
     - new password
     - confirm password
-- Navigation Bar 
+- Navigation Bar    ==> Sirius
     - categories
     - sign in
 
 ---
-- my products page for seller
+- products page for seller - (dashboard)  ==>  ...
     - add button 
     - delete button next to products
     - update button next to products
 
-- Add product form
+- Add product form   ==>  ...
     - name
     - price 
     - img(jpeg)
@@ -45,7 +46,7 @@
     - inStock
     - desc
 
-- update product
+- update product   ==>  ...
     - name
     - price 
     - img(jpeg)
@@ -53,7 +54,7 @@
     - inStock
     - desc
 
-- profile page
+- profile page    ==>  Omer
     - First Name
     - Last Name
     - Email
@@ -62,7 +63,7 @@
     - user role
     - my products button
 
-- update profil page
+- update profile page    ==>  Omer
     - First Name
     - Last Name
     - Email
@@ -70,7 +71,7 @@
     - Adress 
     - profileImg
 
-- product detail page
+- product detail page   ==> Ekrem
     - name
     - price 
     - img
@@ -83,7 +84,7 @@
     - add to basket button
     - direct buy button
 
-- basket page
+- basket page   ==>  Oguzhan
     - products
     - delete button
     - plus button for quantity
