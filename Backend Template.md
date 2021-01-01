@@ -38,6 +38,7 @@
   - Adress str
   - CreatedAt date
   - profileImg
+  - Basket
   - likes array ref : productId
   - Role str enum
     - Seller
@@ -55,11 +56,6 @@
     - inStock number
     - seller ref from user model
     - desc \* str
-
-- Basket
-  - product : ref from products by id
-    - object of Array push() to quantity
-  - owner : \_id ref from user model
 
 # Routes
 
@@ -101,17 +97,14 @@
   - Sorting
   - Search  api/products/search  _**get**_  => PUBLIC
  
-- Basket Router api/basket
-  - getBasket api/basket  => PRIVATE
-    - check seller auth 
-  - addBasket api/basket/addToBasket ****post****   => PRIVATE
+- Basket Router api/basket 
+  - getBasket api/basket  => ****get****  PRIVATE
+    - check seller auth  
+
+  - addProduct api/basket/add/:id ****get****   => PRIVATE
     - check seller auth 
     - check basket if product exists
-  - updateBasket api/basket/updateToBasket ****put****  => PRIVATE
+
+  - removeProduct api/basket/remove/:id _**get**_  => PRIVATE
     - check seller auth
     - check basket if product exists
-    - check ownership of basket
-  - deleteBasket api/basket/deleteFromBasket _**delete**_  => PRIVATE
-    - check seller auth
-    - check basket if product exists
-    - check ownership of basket

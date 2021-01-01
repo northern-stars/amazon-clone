@@ -50,6 +50,10 @@ const UserSchema = new Schema({
       ref: "Product",
     },
   ],
+  basket: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  }],
   avatarImg: {
     type: String,
     default: "default.jpg",
