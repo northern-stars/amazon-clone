@@ -4,8 +4,10 @@ const cookieParser = require("cookie-parser");
 const { connectDB } = require("./helpers/connectDB");
 const morgan = require("morgan");
 const path = require("path");
+const customErrorHandler = require("./middlewares/error/customErrorHandler");
 
 const app = express();
+
 // Middlewares
 //Express Body Parser midd.
 app.use(express.json());
@@ -14,13 +16,16 @@ app.use(morgan("dev")); // GET / 404 6.489 ms - 139
 
 app.use(express.urlencoded({ extended: true }));
 const port = process.env.port || process.env.PORT;
+
 //Static Files
 app.use(express.static(path.join(__dirname, "public")));
+
 // Route
 const router = require("./routes/router");
 app.use("/api", router); // respond only "/api" endpoint
 
-
+//Custom Error Handler
+app.use(customErrorHandler);
 
 // Connect DB
 connectDB();
