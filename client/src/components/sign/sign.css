@@ -16,7 +16,7 @@ body {
     padding: 14px 18px;
     text-align: center;
 }
-.MuiPaper-root {
+#paper {
     padding: 20px 26px;
     margin-bottom: 20px;
 }
@@ -132,7 +132,6 @@ a {
     width: -moz-available;
     margin: auto;
     box-sizing: border-box;
-
 }
 .create-button:hover {
     box-shadow: 0 1px 3px rgba(0,0,0,.2) inset;

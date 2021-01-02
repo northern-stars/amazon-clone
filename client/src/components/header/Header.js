@@ -172,7 +172,7 @@ export default function PrimarySearchAppBar() {
                     showLabels
                     className={classes.headerNavigation}
                 >
-                    <BottomNavigationAction className={classes.action} label="Sign In" href="/sign"/>
+                    <BottomNavigationAction className={classes.action} label="Sign In" href="/signin"/>
                     <BottomNavigationAction className={classes.action} label="& Orders" />
                     <BottomNavigationAction className={classes.action} label="Prime" />
                     <BottomNavigationAction className={classes.action} label="1" icon={<ShoppingBasketIcon/>} />  
