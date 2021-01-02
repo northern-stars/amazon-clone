@@ -16,8 +16,8 @@ export default function SignIn() {
                         <Paper id="paper"> 
                             <form class="signIn-form" method="POST" action="">
                                 <h1 class="form-header" >Giriş yap</h1>
-                                <label for="signIn-form">E-posta adresi veya telefon numarası</label>
-                                <input class="form-input" type="email" name="userSignIn" required/>
+                                <label for="signIn-form">E-posta adresi</label>
+                                <input class="form-input" type="email" name="userEmailSignIn" required/>
                                 <button class="form-button" type="submit">Devam Et</button>  
                             </form>
                             <div class="section-text">

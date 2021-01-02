@@ -47,6 +47,7 @@ label {
     background-color: #fff;
     height: 31px;
     padding: 1px 7px;
+    margin-bottom: 10px;
     line-height: normal;
     border: 1px solid #a6a6a6;
     border-top-color: #949494;
@@ -55,6 +56,7 @@ label {
     outline: 0;
     display: inline-block;
     width: -moz-available;
+
 }
 
 .form-input:focus {
