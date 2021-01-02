@@ -1,8 +1,15 @@
 import React from 'react'
+import clsx from 'clsx';
 import { AppBar,
+         Drawer,
+         Button,
+         List,
+         Divider,
+         ListItemText,
+         ListItemIcon,
+         ListItem,
          Toolbar, 
          makeStyles,
-         fade, 
          InputBase,
          BottomNavigation, 
          BottomNavigationAction,
@@ -14,6 +21,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +94,13 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     fontWeight: '200',
     marginRight: '5px'
-  }
+  },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
 
 }));
 
@@ -154,10 +170,69 @@ export default function PrimarySearchAppBar() {
         </Menu>
     );
 
+    const [state, setState] = React.useState({
+      left: false,
+    });
+  
+    const toggleDrawer = (anchor, open) => (event) => {
+      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        return;
+      }
+  
+      setState({ ...state, [anchor]: open });
+    };
+  
+    const list = (anchor) => (
+      <div
+        className={clsx(classes.list, {
+          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        })}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+      >
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    );
+    
   return (
     <div className={classes.grow}>
       <AppBar position="static" style={{backgroundColor: '#131921'}}>
         <Toolbar>
+          <div>
+            {['left'].map((anchor) => (
+              <React.Fragment key={anchor}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={toggleDrawer(anchor, true)}
+                  edge="start"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+                  {list(anchor)}
+                </Drawer>
+              </React.Fragment>
+            ))}
+          </div>
+    
             <img
                 className={classes.headerLogo}
                 src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
@@ -211,6 +286,7 @@ export default function PrimarySearchAppBar() {
     </AppBar>
     {renderMobileMenu}
     {renderMenu}
+    
     </div>
   );
 }
