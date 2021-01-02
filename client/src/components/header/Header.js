@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   menuItem: {
     textDecoration: 'none',
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '200',
     marginRight: '5px'
   }
 
