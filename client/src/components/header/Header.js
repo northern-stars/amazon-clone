@@ -26,11 +26,14 @@ const useStyles = makeStyles((theme) => ({
   searchIcon: {
     padding: theme.spacing(0, 2),
     height: '100%',
-    position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#cd9042',
+    height: '22.1px',
+    padding: '5.4px',
+    borderRadius: '0 6px 6px 0'
   },
   sectionDesktop: {
     display: 'none',
@@ -56,12 +59,6 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     borderRadius: '6px 0 0 6px'
     
-  },
-  searchIcon: {
-    backgroundColor: '#cd9042',
-    height: '22.1px',
-    padding: '5.4px',
-    borderRadius: '0 6px 6px 0'
   },
   headerSearch: {
     display: 'flex',
@@ -175,7 +172,7 @@ export default function PrimarySearchAppBar() {
                     showLabels
                     className={classes.headerNavigation}
                 >
-                    <BottomNavigationAction className={classes.action} label="Sign In" />
+                    <BottomNavigationAction className={classes.action} label="Sign In" href="/signin"/>
                     <BottomNavigationAction className={classes.action} label="& Orders" />
                     <BottomNavigationAction className={classes.action} label="Prime" />
                     <BottomNavigationAction className={classes.action} label="1" icon={<ShoppingBasketIcon/>} />  
