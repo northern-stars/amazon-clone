@@ -23,6 +23,17 @@ export default function SignUp() {
                                 <input class="form-input" type="email" name="userEmailSignup" placeholder="E-Posta adresiniz" required/>
                                 <label for="signUp-form">Şifre</label>
                                 <input class="form-input" type="password" name="userPasswordSignup" placeholder="En az 6 karakter" required/>
+                                <p>Lütfen hesap türü seçin:</p>
+                                <div>
+                                    <div class="account-select">
+                                        <input type="radio" id="user" name="Account" value="user" checked/>
+                                        <label for="user">Kullanıcı hesabı oluştur</label>
+                                    </div>
+                                    <div class="account-select">
+                                        <input type="radio" id="seller" name="Account" value="seller"/>
+                                        <label for="seller">Satıcı hesabı oluştur</label>
+                                    </div>
+                                </div>
                                 <button class="form-button" type="submit">Amazon hesabınızı oluşturun</button>  
                             </form>
                             <div class="section-text">

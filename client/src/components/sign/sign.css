@@ -134,6 +134,7 @@ a {
     width: -moz-available;
     margin: auto;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 .create-button:hover {
     box-shadow: 0 1px 3px rgba(0,0,0,.2) inset;
@@ -146,4 +147,8 @@ a {
     padding: 0 10px 0 11px;
     font-family: "Amazon Ember",Arial,sans-serif;
     font-weight: 500;
+}
+.account-select {
+    display: flex;
+    margin: 5px 0 5px 0;
 }

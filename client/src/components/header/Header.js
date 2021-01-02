@@ -79,6 +79,12 @@ const useStyles = makeStyles((theme) => ({
     padding: '0px',
     margin: '0px' 
   }, 
+  menuItem: {
+    textDecoration: 'none',
+    color: 'black',
+    fontWeight: '200',
+    marginRight: '5px'
+  }
 
 }));
 
@@ -135,15 +141,15 @@ export default function PrimarySearchAppBar() {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
     >
-        <MenuItem>
-            <p>Sign In/Up</p>
+        <MenuItem >
+            <a className={classes.menuItem} href="/signin">Sign In/Up</a>
         </MenuItem>
         <MenuItem>
-            <p>Log Out</p>
+            <a className={classes.menuItem}>Log Out</a>
         </MenuItem>
         <MenuItem onClick={handleProfileMenuOpen}>
+            <a className={classes.menuItem}>Profile</a>
             <AccountCircle />
-            <p>Profile</p>
         </MenuItem>
         </Menu>
     );
