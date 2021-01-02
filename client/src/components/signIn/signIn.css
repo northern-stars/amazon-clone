@@ -18,7 +18,7 @@ body {
 }
 .MuiPaper-root {
     padding: 20px 26px;
-  
+    margin-bottom: 20px;
 }
 .signin-form {
     display: grid;
@@ -90,11 +90,59 @@ a {
 }
 
 .section-text {
-    font-size: 12px !important;
-    line-height: 1.5 !important;
+    font-size: 12px ;
+    line-height: 1.5 ;
     margin-top: 18px;
     width: 100%;
     box-sizing: border-box;
     font-family: "Amazon Ember",Arial,sans-serif;
     text-align: justify;
+}
+.divider {
+    text-align: center;
+    position: relative;
+    top: 2px;
+    padding-top: 1px;
+    margin-bottom: 14px;
+    line-height: 0;
+    border-top: 1px solid #e7e7e7;
+}
+.divider h5 {
+    line-height: 1;
+    font-size: 12px;
+    color: #767676;
+    font-weight: 600;
+    z-index: 2;
+    position: relative;
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px 8px 0 7px;
+}
+.create-button {
+    background: #e7e9ec;
+    border-radius: 3px;
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display:block;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
+    width: -moz-available;
+    margin: auto;
+    box-sizing: border-box;
+
+}
+.create-button:hover {
+    box-shadow: 0 1px 3px rgba(0,0,0,.2) inset;
+    background-image: none;
+    background-color: #dcdfe3;
+}
+.create-button a {
+    text-decoration: none;
+    color: #111;
+    padding: 0 10px 0 11px;
+    font-family: "Amazon Ember",Arial,sans-serif;
+    font-weight: 500;
 }
